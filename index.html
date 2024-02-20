@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Test</title>
+    <style>
+      #hotspot-demo {
+        display: block;
+        position: relative;
+        contain: strict;
+        width: 100%;
+        height: 100vh;
+      }
+      .hotspot {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        border: none;
+        background-color: blue;
+        box-sizing: border-box;
+        /* pointer-events: none; */
+      }
+
+      .hotspot[slot="hotspot-hand"] {
+        --min-hotspot-opacity: 0;
+        background-color: red;
+      }
+
+      .hotspot[slot="hotspot-foot"]:not([data-visible]) {
+        background-color: transparent;
+        border: 3px solid blue;
+      }
+
+      .annotation {
+        background-color: #888888;
+        position: absolute;
+        transform: translate(10px, 10px);
+        border-radius: 10px;
+        padding: 10px;
+      }
+      /* This keeps child nodes hidden while the element loads */
+      :not(:defined) > * {
+        display: none;
+      }
+    </style>
+    <script
+      type="module"
+      src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- data-normal="-.4 0 1" -->
+    <!-- <model-viewer
+      id="hotspot-demo"
+      ar
+      ar-modes="webxr"
+      camera-controls
+      touch-action="pan-y"
+      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+      poster="https://modelviewer.dev/assets/poster-astronaut.webp"
+      shadow-intensity="1"
+      alt="A 3D model of an astronaut."
+    >
+      <button
+        class="hotspot"
+        slot="hotspot-visor"
+        data-position="0 1.75 0.35"
+        data-normal="0 0 1"
+      ></button>
+      <button
+        class="hotspot hotspot1"
+        data-tab="content1"
+        slot="hotspot-hand"
+        data-position="-.54 0.93 0.1"
+        data-normal="-0.73 0.05 0.69"
+      >
+        <div class="annotation content1">
+          This hotspot disappears completely
+        </div>
+      </button>
+      <button
+        class="hotspot"
+        slot="hotspot-foot"
+        data-position="0.16 0.1 0.17"
+        data-normal="-0.07 0.97 0.23"
+        data-visibility-attribute="visible"
+      ></button>
+    </model-viewer> -->
+
+    <model-viewer
+      id="hotspot-demo"
+      ar
+      ar-modes="webxr"
+      camera-controls
+      touch-action="pan-y"
+      src="https://pixel.withgoogle.com/assets/3d-model/Pixel_7a/P7a_L10_export_v007.glb"
+      shadow-intensity="1"
+      alt="A 3D model of an astronaut."
+    >
+      <button
+        class="hotspot"
+        slot="hotspot-visor"
+        data-position="0 .145 0"
+        data-normal=".001 -.1 1"
+      ></button>
+      <button
+        class="hotspot hotspot1"
+        data-tab="content1"
+        slot="hotspot-hand"
+        data-position="0.038 .105 0"
+        data-normal="1 0 0"
+      >
+        <div class="annotation content1">
+          Power Button
+        </div>
+      </button>
+      <button
+        class="hotspot"
+        slot="hotspot-foot"
+        data-position="0 0 0"
+        data-normal="0 0 0"
+        data-visibility-attribute="visible"
+      ></button>
+    </model-viewer>
+
+    <script>
+      $(document).ready(function () {
+        $(".content1").hide();
+        $(".hotspot1").on("click", function () {
+          $("." + $(this).attr("data-tab")).show();
+        });
+        // jQuery methods go here...
+      });
+    </script>
+  </body>
+</html>
